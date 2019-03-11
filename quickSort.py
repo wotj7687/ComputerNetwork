@@ -37,27 +37,33 @@ def partition(alist,first,last):
 
 alist = []
 
+
 arrInsert = input("What Do you want? :")
-if arrInsert == "-o":
-    arrType = input("Input array type you want: ")
-    if arrType == "A":
-        arrStart = input("You want to input to make array? : ")
-        if arrStart == "-i":
-            while 1:
-                value = int(input("Input Number(! = stop): "))
-                if(value) == 99:
-                    break
-                alist.append(value)
-            quickSort(alist)
-            print(alist)
-    elif arrType == "D":
-        arrStart = input("You want to input to make array? : ")
-        if arrStart == "-i":
-            while 1:
-                value = int(input("Input Number(! = stop): "))
-                if (value) == 99:
-                    break
-                alist.append(value)
-            quickSort(alist)
-            alist.reverse()
-            print(alist)
+while 1:
+    if arrInsert == "-o":
+        arrType = input("Input array type you want: ")
+        if arrType == "A":
+            arrStart = input("You want to input to make array? : ")
+            if arrStart == "-i":
+                while 1:
+                    value = int(input("Input Number(1010 = stop): "))
+                    if(value) == 1010:
+                        break
+                    alist.append(value)
+                quickSort(alist)
+                print(alist)
+        elif arrType == "D":
+            arrStart = input("You want to input to make array? : ")
+            if arrStart == "-i":
+                while 1:
+                    value = int(input("Input Number(1010 = stop): "))
+                    if (value) == 1010:
+                        break
+                    alist.append(value)
+                quickSort(alist)
+                alist.reverse()
+                print(alist)
+        else:
+            print("Plz Enter A or D")
+    else:
+        print("Err")
