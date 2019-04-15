@@ -1,21 +1,33 @@
 ## client.py
+#현재 쌍방 채팅이 가능하게끔 설정을 해놓았습니다.
 
-import socket
-import argparse
+from socket import *
+import threading
+import time
 
-def run(host, port):
-    with socket.socket(family = socket.AF_INET, type = socket.SOCK_STREAM) as s:
-        
-        s.connect((host, port))  ## 상대방 IP주소, 상대방 port 번호
-        line = input(':')
-        s.sendall(line.encode())
-        resp = s.recv(1024)
-        print(resp.decode())
+def send(sock):
+    while 1:
+        sendData = input('')
+        sock.send(sendData.encode('utf-8'))
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Echo client -p port -i host")
-    parser.add_argument("-p", help = "port_number", required = True)
-    parser.add_argument("-i", help="host_name", required=True)
+def receive(sock):
+    while 1:
+        recvData = sock.recv(1024)
+        print('상대방 :',recvData.decode('utf-8'))
 
-    args = parser.parse_args()
-    run(host=args.i, port=int(args.p))
+port = 8080
+
+clientSock = socket(AF_INET, SOCK_STREAM)
+clientSock.connect(('127.0.0.1', port))
+
+print('접속 완료.')
+
+sender = threading.Thread(target=send, args=(clientSock,))
+receiver = threading.Thread(target=receive, args=(clientSock,))
+
+sender.start()
+receiver.start()
+
+while 1:
+    time.sleep(1)
+    pass
